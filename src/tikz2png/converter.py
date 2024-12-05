@@ -306,7 +306,7 @@ def main() -> None:
         logging.getLogger("tikz2png").setLevel(logging.WARNING)
 
     try:
-        console.print("[bold green]🚀 Initializing converter...[/]")
+        console.print("[bold green]🚀 Initialising converter...[/]")
         converter = create_converter(config)
         converter.run(config.force)
     except Exception as e:
