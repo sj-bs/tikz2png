@@ -1,0 +1,10 @@
+
+[run]
+source = src/tikz2png
+omit = tests/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == .__main__.:

@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tikz2png"
+version = "1.0.0"
+description = "Convert TikZ diagrams to PNG images"
+requires-python = ">=3.9"
+dependencies = [
+    "rich>=13.0.0",
+]
+authors = [
+    {name = "Stephen Spencer", email = "stephen.spencer@durham.ac.uk"},
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-mock>=3.6.1",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.9",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tikz2png"]
+
+[project.scripts]
+tikz2png = "tikz2png.converter:main"
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "B",
+]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
