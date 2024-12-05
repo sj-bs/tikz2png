@@ -224,8 +224,14 @@ class TikZConverter:
             self.latex_compiler.compile(tex_file)
             pdf_file = (tex_file.parent / f"{tex_file.stem}.pdf").absolute()
             self.image_converter.convert_pdf_to_png(pdf_file, png_path)
-            self.file_manager.cleanup_auxiliary_files(tex_file.absolute())
 
+            if progress:
+                progress.console.print(
+                    f"\n✅ [green]Successfully converted:[/] {tex_file.name} "
+                    f"-> {png_path.name}"
+                )
+
+            self.file_manager.cleanup_auxiliary_files(tex_file.absolute())
             self.stats["processed"] += 1
             return True
         except Exception as e:

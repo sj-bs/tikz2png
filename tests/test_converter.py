@@ -3,7 +3,7 @@ import subprocess
 import time
 from pathlib import Path
 from typing import Any, Optional
-from unittest.mock import Mock, create_autospec, patch
+from unittest.mock import Mock, call, create_autospec, patch
 
 import pytest
 from rich.progress import TaskID
@@ -309,14 +309,30 @@ def test_tikz_converter_with_progress(tmp_path: Path) -> None:
     )
 
     mock_progress = Mock()
+    mock_console = Mock()
+    mock_progress.console = mock_console
     task_id = TaskID(1)
 
-    converter.process_file(
+    result = converter.process_file(
         tex_file, force=True, task_id=task_id, progress=mock_progress
     )
+    assert result is True
+
     mock_progress.update.assert_called_with(
         task_id, description=f"Processing {tex_file.name}"
     )
+    mock_console.print.assert_called_with(
+        f"\n✅ [green]Successfully converted:[/] {tex_file.name} -> "
+        f"{tex_file.stem}.png"
+    )
+
+    expected_calls: list[Any] = [
+        call(
+            f"\n✅ [green]Successfully converted:[/] {tex_file.name} -> "
+            f"{tex_file.stem}.png"
+        ),
+    ]
+    mock_console.print.assert_has_calls(expected_calls, any_order=False)
 
 
 def test_tikz_converter_error_with_progress(tmp_path: Path) -> None:
