@@ -142,3 +142,14 @@ Your TikZ files should be standalone LaTeX documents. Example:
 
 Note: This project uses `pyproject.toml` for dependency management and `hatchling` as the build backend.
 All dependencies and build configuration can be found in `pyproject.toml`.
+
+## TODO
+
+- Flags to pass additional commands into pdflatex and Magick
+- Flag to specify the version of the package
+- More flexible setup process
+- Support for persisting configuration setups
+- Flag to set which auxiliary files to keep/delete
+- Flag to remove auxiliary files even if the tikz file is not regenerated
+- Support for asymptote files (maybe)
+- Support for other LaTeX engines (maybe)
