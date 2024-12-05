@@ -57,6 +57,8 @@ tikz2png
 
 The converted PNG files will be saved in `./Assets/figures/`.
 
+![tikz2png](./resources/screenshot.png)
+
 ### Command-line Options
 
 - `-q, --quiet`: Reduce logging verbosity
