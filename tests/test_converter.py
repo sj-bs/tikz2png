@@ -28,18 +28,25 @@ from tikz2png.interfaces import (
 
 
 def test_extract_latex_errors_with_error() -> None:
+    """Test that LaTeX errors are properly extracted."""
     stderr = """
-    This is pdfTeX, Version 3.14159265-2.6-1.40.21
     ! LaTeX Error: File `nonexistent.sty' not found
 
-    Type X to quit or <RETURN> to proceed
+    Other output that should be ignored
+    ! Fatal error occurred
+
+    More text to ignore
     """
     result = extract_latex_errors(stderr)
     assert "LaTeX Error: File `nonexistent.sty' not found" in result
+    assert "Fatal error occurred" in result
+    assert "Other output that should be ignored" not in result
+    assert "More text to ignore" not in result
 
 
 def test_extract_latex_errors_without_error() -> None:
-    stderr = "This is pdfTeX, Version 3.14159265-2.6-1.40.21"
+    """Test that non-error output is returned as-is."""
+    stderr = "Normal LaTeX output without any errors"
     result = extract_latex_errors(stderr)
     assert result == stderr
 
